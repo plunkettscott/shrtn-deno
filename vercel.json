@@ -1,0 +1,41 @@
+{
+  "env": {
+    "AIRTABLE_API_KEY": "@airtable-api-key",
+    "AIRTABLE_BASE_ID": "app9Jz0Oqy2l7i6P8"
+  },
+  "functions": {
+    "api/**/*.ts": {
+      "runtime": "now-deno@0.4.0"
+    }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "cache-control",
+          "value": "s-maxage=60, stale-while-revalidate"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "https://github.com/grikomsn/shrtn-deno"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/:uid",
+      "destination": "/api/redirect"
+    }
+  ],
+  "github": {
+    "autoAlias": true,
+    "enabled": true
+  },
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "public": true
+}

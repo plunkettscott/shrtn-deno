@@ -1,0 +1,5 @@
+{
+  "deno.enable": true,
+  "typescriptHero.imports.insertSemicolons": true,
+  "typescriptHero.imports.stringQuoteStyle": "\""
+}
