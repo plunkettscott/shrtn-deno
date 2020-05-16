@@ -35,7 +35,7 @@ This is the Deno version of Shrtn. View the original Node.js version on <https:/
 - Google (generated uid): <https://shrtn-deno.now.sh/ecKS6s70c363wHYh>
 
 View source links at the
-[Shrtn Airtable base template](https://shrtn-deno.now.sh/shrtn-deno-template).
+[Shrtn Airtable base template](https://shrtn-deno.now.sh/shrtn-template).
 
 ## Prerequisites
 
@@ -73,14 +73,14 @@ View source links at the
 
 3. Fork this repository
 
-4. Add your API key to `now secrets`
+4. Add your API key to `vercel secrets`
 
    ```console
-   $ now secrets add airtable-api-key keyXXXXXXXXXXXXXX
+   $ vercel secrets add airtable-api-key keyXXXXXXXXXXXXXX
    ```
 
-   > Note: [`now`](https://www.npmjs.com/package/now) is a CLI program which you
-   > can install by running `npm -g i now` or `yarn global add now`
+   > Note: [`vercel`](https://www.npmjs.com/package/vercel) is a CLI program which you
+   > can install by running `npm -g i vercel` or `yarn global add vercel`
 
 5. Add your base ID on `vercel.json`
 
