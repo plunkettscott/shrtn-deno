@@ -1,6 +1,8 @@
-import { Records } from "https://unpkg.com/@types/airtable@0.5.7/index.d.ts";
-
-import { APIGatewayProxyEvent, APIGatewayProxyResult, soxa } from "../deps.ts";
+import {
+  APIGatewayProxyEvent,
+  APIGatewayProxyResult,
+  Records,
+} from "../deps.ts";
 
 const CACHE_DURATION_MS = 10000;
 
@@ -35,11 +37,10 @@ export const handler = async (
   const isCacheExpired = currentTime - lastUpdated > CACHE_DURATION_MS;
 
   if (isForceReload || isLinksEmpty || isCacheExpired) {
-    const endpoint = `https://api.airtable.com/v0/${baseId}/${tableName}`;
-    const { data } = await soxa.get(endpoint, {
+    const endpoint = `https://api.airtable.com/v0/${baseId}/${tableName}/?maxRecords=9999&view=${viewName}`;
+    const data = await fetch(endpoint, {
       headers: { ["Authorization"]: `Bearer ${apiKey}` },
-      params: { ["view"]: viewName, ["maxRecords"]: 9999 },
-    });
+    }).then((res) => res.json());
 
     links = data.records;
     lastUpdated = currentTime;
