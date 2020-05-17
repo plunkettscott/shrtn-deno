@@ -1,9 +1,6 @@
-import {
-  APIGatewayProxyEvent,
-  APIGatewayProxyResult,
-} from "https://deno.land/x/lambda@1.0.0/mod.ts";
-import { soxa } from "https://deno.land/x/soxa@v1.0/mod.ts";
 import { Records } from "https://unpkg.com/@types/airtable@0.5.7/index.d.ts";
+
+import { APIGatewayProxyEvent, APIGatewayProxyResult, soxa } from "../deps.ts";
 
 const CACHE_DURATION_MS = 10000;
 
