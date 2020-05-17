@@ -1,8 +1,4 @@
-import {
-  APIGatewayProxyEvent,
-  APIGatewayProxyResult,
-  Records,
-} from "../deps.ts";
+import { createNowFn, Records } from "../deps.ts";
 
 const CACHE_DURATION_MS = 10000;
 
@@ -14,21 +10,15 @@ const viewName = "Grid view";
 let links: Records<Link>;
 let lastUpdated: number;
 
-export const handler = async (
-  event: APIGatewayProxyEvent
-): Promise<Partial<APIGatewayProxyResult>> => {
-  const request = JSON.parse(event.body!);
-
-  const path = new URL(request.path, "https://deno.land");
-  const uid = path.searchParams.get("uid");
-  const nocache = path.searchParams.get("nocache") !== null;
+export const handler = createNowFn(async (req, res) => {
+  const { uid, nocache } = req.query;
 
   const currentTime = new Date().valueOf();
   const timestamp = new Date().toISOString();
 
-  const ip = request.headers["x-forwarded-for"];
-  const protocol = request.headers["x-forwarded-proto"];
-  const host = request.headers["host"];
+  const ip = req.headers["x-forwarded-for"];
+  const protocol = req.headers["x-forwarded-proto"];
+  const host = req.headers["host"];
   const encodedUid = encodeURIComponent(`${uid}`);
   const source = `${protocol}://${host}/${encodedUid}`;
 
@@ -51,19 +41,13 @@ export const handler = async (
 
     if (enabled && resolvedUid === uid) {
       console.log(`[${timestamp}] ${ip} -> ${source} -> ${url}`);
-      return {
-        statusCode: 308,
-        headers: { ["Location"]: url },
-      };
+      return res.writeHead(308, { ["Location"]: url });
     }
   }
 
   console.error(`[${timestamp}] ${ip} -> ${source} -> n/a`);
-  return {
-    statusCode: 404,
-    body: JSON.stringify({ error: "link not found", source, timestamp }),
-  };
-};
+  return res.writeHead(404, { error: "link not found", source, timestamp });
+});
 
 interface Link {
   name: string;
