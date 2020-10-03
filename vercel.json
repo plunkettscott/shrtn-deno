@@ -1,7 +1,7 @@
 {
   "env": {
     "AIRTABLE_API_KEY": "@airtable-api-key",
-    "AIRTABLE_BASE_ID": "app9Jz0Oqy2l7i6P8"
+    "AIRTABLE_BASE_ID": "app4U8pbFZV7GSZuS"
   },
   "functions": {
     "api/**/*.ts": {
@@ -22,7 +22,7 @@
   "redirects": [
     {
       "source": "/",
-      "destination": "https://github.com/grikomsn/shrtn-deno"
+      "destination": "https://lesagaming.com"
     }
   ],
   "rewrites": [
